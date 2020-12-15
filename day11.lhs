@@ -12,7 +12,7 @@ image:       aoc-haskell.jpeg
 [aoc11]: https://adventofcode.com/2020/day/11
 [ca]: https://en.wikipedia.org/wiki/Cellular_automaton
 
-This post is mosly [literate Haskell][self], except I have no idea
+This post is mostly [literate Haskell][self], except I have no idea
 what I'm doing.[^literate] So… let's see how this goes!
 
 [self]: https://github.com/jmazon/adventofcode2020/blob/master/day11.lhs
@@ -28,7 +28,6 @@ processing goes.  My Haskell ought to be fine.
 > {-# LANGUAGE NamedFieldPuns #-}
 > {-# LANGUAGE RankNTypes #-}
 > {-# LANGUAGE RecordWildCards #-}
-> {-# LANGUAGE RecursiveDo #-}
 > {-# LANGUAGE TupleSections #-}
 > {-# LANGUAGE ViewPatterns #-}
 > import           Control.Monad
@@ -178,9 +177,7 @@ meaningful, so I'll keep it simple here for further readability.
 
 > environment :: (Pos -> [Pos]) -> [Pos] -> ST s (Env s)
 > environment nbs seatPoss = do
->   pos2ref <- map (\p -> (p,) <$> newSTRef False) seatPoss &
->              sequence                                     &
->              fmap Map.fromList
+>   pos2ref <- Map.fromList <$> mapM (\p -> (p,) <$> newSTRef False) seatPoss
 >   pure $
 >     map ( \(pos,nodeRef) ->
 >             let nodeNeighborRefs = map (pos2ref Map.!) (nbs pos)

@@ -1,4 +1,4 @@
-name:               Advent of Code 2020
+name:               adventofcode2020
 version:            2020
 build-type:         Simple
 cabal-version:      >= 1.10
@@ -24,6 +24,6 @@ executable day14
   ghc-options: -Wall
 
 executable day15
-  main-is: day15.hs
+  main-is: day15.lhs
   build-depends: base, containers, mtl
   ghc-options: -Wall
