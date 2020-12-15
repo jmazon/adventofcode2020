@@ -1,7 +1,7 @@
 ---
 title:       "AoC day 11: Seating System"
 author:      "Jean-Baptiste Mazon"
-date:        "2020-12-11"
+date:        "2020-12-11T10:50:16+01:00"
 tags:        ["advent of code", aoc2020, haskell, "cellular automaton"]
 description: "Building a cellular automaton out of STRefs"
 image:       aoc-haskell.jpeg
@@ -12,8 +12,10 @@ image:       aoc-haskell.jpeg
 [aoc11]: https://adventofcode.com/2020/day/11
 [ca]: https://en.wikipedia.org/wiki/Cellular_automaton
 
-This post is mosly literate Haskell, except I have no idea what I'm
-doing.[^literate]  So… let's see how this goes!
+This post is mosly [literate Haskell][self], except I have no idea
+what I'm doing.[^literate] So… let's see how this goes!
+
+[self]: https://github.com/jmazon/adventofcode2020/blob/master/day11.lhs
 
 As is customary, here's five pages of language extensions and imports
 that you may freely skip over.  I simply haven't found the proper way
