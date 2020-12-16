@@ -27,3 +27,8 @@ executable day15
   main-is: day15.lhs
   build-depends: base, containers, mtl
   ghc-options: -Wall
+
+executable day16
+  main-is: day16.lhs
+  build-depends: base, split
+  ghc-options: -Wall
