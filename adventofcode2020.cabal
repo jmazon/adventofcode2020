@@ -32,3 +32,8 @@ executable day16
   main-is: day16.lhs
   build-depends: base, split
   ghc-options: -Wall
+
+executable day17
+  main-is: day17.lhs
+  build-depends: base, containers, lens, linear
+  ghc-options: -Wall
