@@ -37,3 +37,8 @@ executable day17
   main-is: day17.lhs
   build-depends: base, containers, lens, linear
   ghc-options: -Wall
+
+executable day19
+  main-is: day19.lhs
+  build-depends: base, containers, parsec, regex-pcre, split
+  ghc-options: -Wall
