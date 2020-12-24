@@ -1,5 +1,9 @@
 resolver:
   url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/16/23.yaml
-# extra-deps: []
+extra-deps:
+- modular-arithmetic-2.0.0.1@sha256:afc4fc1f503cf0e21eee9eec1b433d010603aadccf9d6590287a175bdc8cfb1b,1606
+- typelits-witnesses-0.4.0.0@sha256:1d7092ba98fdc33f4b413e04144eb3ead7b105f74b2998e3c74a8a0feee685a9,1985
+- dependent-sum-0.7.1.0@sha256:5599aa89637db434431b1dd3fa7c34bc3d565ee44f0519bfbc877be1927c2531,2068
+- constraints-extras-0.3.0.2@sha256:013b8d0392582c6ca068e226718a4fe8be8e22321cc0634f6115505bf377ad26,1853
 # flags: {}
 # extra-package-dbs: []

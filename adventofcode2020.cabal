@@ -43,6 +43,11 @@ executable day19
   build-depends: base, containers, parsec, regex-pcre, split
   ghc-options: -Wall
 
+executable day22
+  main-is: day22.lhs
+  build-depends: base, containers, split
+  ghc-options: -Wall
+
 executable day23
   main-is: day23.lhs
   build-depends: base, array
