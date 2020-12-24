@@ -46,3 +46,11 @@ executable day19
 executable day23
   main-is: day23.lhs
   build-depends: base, array
+  default-language: Haskell2010
+  ghc-options: -Wall
+
+executable day24
+  main-is: day24.lhs
+  build-depends: base, containers
+  default-language: Haskell2010
+  ghc-options: -Wall
