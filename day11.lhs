@@ -4,7 +4,7 @@ author:      "Jean-Baptiste Mazon"
 date:        "2020-12-11T10:50:16+01:00"
 tags:        ["advent of code", aoc2020, haskell, "cellular automaton"]
 description: "Building a cellular automaton out of STRefs"
-image:       aoc-haskell.jpeg
+image:       aoc-2020-11.jpeg
 ---
 
 [AoC day 11][aoc11] is the day of the [cellular automaton][ca].
