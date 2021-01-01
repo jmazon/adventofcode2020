@@ -12,6 +12,12 @@ library
                   , split
   default-language: Haskell2010
 
+executable day07
+  main-is: day07.lhs
+  build-depends: base,containers,parsec,recursion-schemes
+  default-language: Haskell2010
+  ghc-options: -Wall
+
 executable day08
   main-is: day08.lhs
   build-depends: base,containers,transformers
