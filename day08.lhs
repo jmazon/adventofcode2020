@@ -13,7 +13,7 @@ sufficient to solve [today's problem][aoc].[^proof]  This post is a
 legitimate [literate Haskell][lit] program starting with page after
 page of language extensions and imports.
 
-[aoc]: https://adventofcode.com/2020/day/08
+[aoc]: https://adventofcode.com/2020/day/8
 [lit]: https://github.com/jmazon/adventofcode2020/blob/master/day08.lhs
 [^proof]: But proving it on such a simplistic architecture *is* feasible.
 

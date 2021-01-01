@@ -12,7 +12,7 @@ Lists of integers are at the core of [today's puzzle][aoc].  This post
 is a [literate Haskell][lit] program; here's a few imports to skip
 over.
 
-[aoc]: https://adventofcode.com/2020/day/09
+[aoc]: https://adventofcode.com/2020/day/9
 [lit]: https://github.com/jmazon/adventofcode2020/blob/master/day09.lhs
 
 > {-# LANGUAGE NamedFieldPuns #-}

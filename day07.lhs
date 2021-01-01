@@ -14,7 +14,7 @@ extract various metrology information about a distinguished bag in a
 graph of bags.  I'll proceed in [literate Haskell][lit], with a few
 extensions and imports.
 
-[aoc]: https://adventofcode.com/2020/day/07
+[aoc]: https://adventofcode.com/2020/day/7
 [lit]: https://github.com/jmazon/adventofcode2020/blob/master/day07.lhs
 
 > {-# LANGUAGE DeriveFunctor #-}

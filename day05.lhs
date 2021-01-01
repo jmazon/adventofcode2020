@@ -13,7 +13,7 @@ is, and decode it as such instead of getting lost in implementation.
 This post is [literate Haskell][lit], and one of the rare where there
 is *no* header of imports and extensions.
 
-[aoc]: https://adventofcode.com/2020/day/05
+[aoc]: https://adventofcode.com/2020/day/5
 [lit]: https://github.com/jmazon/adventofcode2020/blob/master/day05.lhs
 
 Seats are numbered from front to back, then left to right,[^order] so

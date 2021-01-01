@@ -12,7 +12,7 @@ A straightforward implementation will do the trick for [today's
 puzzle][aoc].  This post is [literate Haskell][lit], starting with a
 few imports and extensions.
 
-[aoc]: https://adventofcode.com/2020/day/04
+[aoc]: https://adventofcode.com/2020/day/4
 [lit]: https://github.com/jmazon/adventofcode2020/blob/master/day04.lhs
 
 > {-# LANGUAGE LambdaCase   #-}

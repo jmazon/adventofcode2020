@@ -13,7 +13,7 @@ survey results.  This post is [literate Haskell][lit].^[For
 consistency.  For a three-liner that could condense to one, it's not
 buying much.]
 
-[aoc]: https://adventofcode.com/2020/day/06
+[aoc]: https://adventofcode.com/2020/day/6
 [lit]: https://github.com/jmazon/adventofcode2020/blob/master/day06.lhs
 
 > import Data.List.Split
