@@ -1,0 +1,260 @@
+---
+title:       "AoC day 7 done the proper way"
+author:      "Jean-Baptiste Mazon"
+date:        "2021-01-05T13:48:16+01:00"
+tags:        ["advent of code", aoc2020, git, bash, humor, sed]
+description: "Using the proper tool for the job"
+image:       aoc-2020-07-git.jpeg
+---
+
+As you surely noticed if you read [my Haskell solution][hs] to [the
+Advent of Code day 7 puzzle][aoc], performance wasn't really necessary
+to get things to work.  Or even a proper algorithm.  But that doesn't
+mean we have to settle for mediocrity!
+
+[hs]: /posts/day07.html
+[aoc]: https://adventofcode.com/2020/day/7
+
+In this [literate bash][lit][^lit] post, I'll walk you through the
+proper way to solve the problem.
+
+[lit]: https://github.com/jmazon/adventofcode2020/blob/master/day07.lsh
+
+[^lit]: No, that's not really a thing.  That I know of.  But
+[`pandoc`][pandoc] was nice enough to let me hack its
+`literate_haskell` extension with a two-line filter to highlight as
+bash instead of Haskell on the WEAVE side, and [GHC][ghc]'s `unlit`
+worked as-is on the TANGLE side.  So… I guess it's a thing now, *de
+facto*.  If you want to reproduce at home, I used this command-line:
+
+    ``` bash
+    $ ~/.stack/programs/x86_64-linux/ghc-8.8.4/lib/ghc-8.8.4/bin/unlit day07.lsh /dev/stdout | bash
+    254
+    6006
+    ```
+    
+    But I suppose `sed` would be just as easy.
+
+[pandoc]: https://pandoc.org/
+[ghc]: https://www.haskell.org/ghc/
+
+Really, it was right under our nose.  We're given specifications for
+bags.  They can refer to zero or more other bags.  But never—in my
+input—forming any cycles.  Ring a bell yet?
+
+Of course!  [Git][git], baby!
+
+[git]: https://git-scm.com/
+
+For those unfamiliar, Git is a [DSL][dsl] and toolkit dedicated to
+manipulationg [directed acyclic graphs][dag].  Some people even use it
+to track files.  So why reinvent the wheel when others have solved the
+problem before?  [NIH][nih] be damned, it's time to use the proper
+tool for the job.
+
+[dsl]: https://en.wikipedia.org/wiki/Domain-specific_language
+[dag]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+[nih]: https://wiki.c2.com/?NotInventedHere
+
+I'll use Git for its graph handling abilities, but I have no need to
+track any files, let alone directories.  So I'll just set up a
+temporary directory for the Git metadata and be done with it.  With
+all the proper precautions to avoid being lawyered into oblivion if
+one of my readers were to encounter a glitch and take out their entire
+and sole copy of a repository.
+
+> set -ue
+> unset GIT_DIR
+> trap 'rm -rf $GIT_DIR' EXIT
+> GIT_DIR="$(mktemp -d)"
+> export GIT_DIR
+> git init
+
+The input format looks something like this.
+
+  >     light red bags contain 1 bright white bag, 2 muted yellow bags.
+  >     dark orange bags contain 3 bright white bags, 4 muted yellow bags.
+  >     bright white bags contain 1 shiny gold bag.
+  >     muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
+  >     shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.
+  >     dark olive bags contain 3 faded blue bags, 4 dotted black bags.
+  >     vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.
+  >     faded blue bags contain no other bags.
+  >     dotted black bags contain no other bags.
+
+Let's make it more practical.
+
+> prepare() {
+>   sed -E \
+>     -e 's/ contain|,|\.| no other bags//g' \
+>     -e 's/(\w+) (\w+) bags?/\1-\2/g'
+> }
+
+The first `-e` line gets rid of anything not data.  The second one
+then normalizes the bag identifiers into some form of string that
+makes an acceptable Git tag name.
+
+The transformed input now looks like this:
+
+  >     light-red 1 bright-white 2 muted-yellow
+  >     dark-orange 3 bright-white 4 muted-yellow
+  >     bright-white 1 shiny-gold
+  >     muted-yellow 2 shiny-gold 9 faded-blue
+  >     shiny-gold 1 dark-olive 2 vibrant-plum
+  >     dark-olive 3 faded-blue 4 dotted-black
+  >     vibrant-plum 5 faded-blue 6 dotted-black
+  >     faded-blue
+  >     dotted-black
+
+In the Git model, taking the first line as an example, I'm going to
+create a commit to represent the “light red” bag, and give it two
+parent commits: the “bright white” representative and the “muted
+yellow” one.
+
+There's a catch.  I don't have an identifier for either parent yet.
+So I'm going to have to create my commits in a very specific order,
+inner bags before outer bags.  In graph theory lingo, this is known as
+a reverse [topological sort][top], since I want the pointy side of the
+arrow to exist before its non-poiny side comes to life.
+
+[top]: https://en.wikipedia.org/wiki/Topological_sorting
+
+Fortunately enough, my GNU coreutils[^posix] come with a
+[`tsort`][tsort] utility.  I'll just reverse the direction of the
+arrows I provide to it so I get the proper ordering directly.
+
+[tsort]: https://en.wikipedia.org/wiki/Tsort
+[^posix]: It's not GNU-specific, it seems to apply to any recent
+    enough Unix system.  Wikipedia says it's been added to POSIX
+    in 2017.
+
+> BAGS=""
+> declare -A LINKS
+>
+> while read CONTAINER CONTAINED; do
+>   LINKS[$CONTAINER]="$CONTAINED"
+>   set -- $CONTAINED
+>   while [[ $# > 0 ]]; do
+>     BAGS="$BAGS $2 $CONTAINER"
+>     shift 2
+>   done
+> done < <(prepare < day07.in)
+>
+> BAGS="$(tsort <<< "$BAGS")"
+
+I'm ready for business.  I'll create one commit per bag, with its
+expected contents as a commit message for easier verification.
+
+> for BAG in $BAGS; do
+>   parents=""
+>   set -- ${LINKS[$BAG]}
+>   while [[ $# > 0 ]]; do
+>     parents="$parents -p $2"
+>     shift 2
+>   done
+>   git commit-tree                      \
+>     $parents                           \
+>     -m "$BAG contains: ${LINKS[$BAG]}" \
+>     $(git write-tree)  |
+>   xargs git tag $BAG
+> done
+
+We can check that, indeed, shiny-gold has two links beneath
+it[^parents], leading to dark-olive and vibrant-plum as expected.
+
+[^parents]: I'd call them children, since they're “contained”, but for
+    some reason Git wants to refer to them as parents.  When people
+    tell you Git is confusing, this is what they're referring to.
+
+![](/images/aoc-2020-07-part1.png)
+
+So now I can solve part 1 by simply checking, for each known bag,
+which ones have shiny-gold in their lineage.  `git log` does this out
+of the box.
+
+> for BAG in $(git tag); do 
+>   [[ $BAG == shiny-gold ]] && continue
+>   git log $BAG --pretty=oneline
+> done |
+> grep -c 'shiny-gold contains'
+
+The correct answer, $4$, is returned.
+
+As can be expected from AoC, part 2 is trickier.  There are more or
+less two challenges to overcome.
+
+1. Most[^all] `git` operations treat the nodes they follow as a set.
+   They remember the nodes they've encountered in the current run and
+   won't show them twice if they're reached through different paths.
+   
+   This is obviously an oversight from the Git maintainers; I'll be
+   sending them a patch to correct this shortly.  Yet in the meantime
+   I'll have to work around.
+   
+2. I currently store a single bag per contained type, but we want to
+   count them, so that information will have to be rendered in the Git
+   graph.
+   
+   It's trickier than it seems.  I can't, for example, include a bag
+   as a parent multiple times: `git` would automatically (and
+   wrongly!)  deduplicate it.
+
+[^all]: I'd say “all”, but it's hard to be sure.  Let me know if you
+can think of one!
+
+The approach I'll take will be to duplicate the contained bags by
+giving them a different commit message, thus separating their
+identifiers.  To avoid cross-container naming clashes, I'll also
+include a trace of their containing bags, so each bag in the shiny
+gold one is unique, in Git as well as aboard.
+
+> expand() {
+>   local TRACK="$1" CONTAINER=$2 CONTAINED=""
+>   set -- ${LINKS[$CONTAINER]}
+>   while [[ $# > 0 ]]; do
+>     for i in $(seq $1); do
+>       CONTAINED="$CONTAINED -p $(expand "$TRACK > $2 $i/$1" $2)"
+>     done
+>     shift 2
+>   done
+>   git commit-tree -m "$TRACK" $CONTAINED $(git write-tree)
+> }
+
+With this recursive function, I can now directly tag the subgraph I'm
+interested in.
+
+> git tag part-2 $(expand shiny-gold shiny-gold)
+
+![](/images/aoc-2020-07-part2.png)
+
+And count the bags.
+
+> git log part-2 --pretty=oneline | grep -c '>'
+
+The correct answer, $32$, is returned.
+
+Unfortunately, my input was a little bit larger than the example, so I
+had to compress the images a bit before publication.  Still, it gives
+the correct results, with the added satisfaction of actually using the
+Right Tool For The Job.
+
+<map name="waldobag"><area shape="rect" coords="226,2385 311,2396" alt="[My shiny gold bag]" href="/images/aoc-2020-07-part1-my-input.png" /></map>
+
+![](/images/aoc-2020-07-part1-my-input-small.jpeg){
+  usemap="#waldobag"
+  alt="[My git graph for part 1]"
+  title="Click on my shiny gold bag if really you must see the full-size original"
+}
+
+This concludes this day 7 addendum solution.  I hope you enjoyed it.
+See you soon!
+
+---
+
+<small>
+  PS: I'm not including the part 2 full picture for my input because
+  120 pages to stitch together is a bit over my patience threshold.
+  So until someone finds me a way to automate this, you'll have to
+  make your own (hey, it's open source!) using either your own input
+  or mine deduced from the part 1 graph.  Or just use your imagination.
+</small>
