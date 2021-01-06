@@ -2,6 +2,7 @@
 title:       "AoC day 7 done the proper way"
 author:      "Jean-Baptiste Mazon"
 date:        "2021-01-05T13:48:16+01:00"
+updated:     "2021-01-06T18:03:28+01:00"
 tags:        ["advent of code", aoc2020, git, bash, humor, sed]
 description: "Using the proper tool for the job"
 image:       aoc-2020-07-git.jpeg
@@ -246,6 +247,16 @@ Right Tool For The Job.
   alt="[My git graph for part 1]"
   title="Click on my shiny gold bag if really you must see the full-size original"
 }
+
+**Update:** I've pushed both [the sample graph][sample] and [the one
+from my puzzle input][my-input] to GitHub.  Like, in case you found a
+bug in one of my bags and wanted to send patches.  A better use of
+your time might be to clone it locally and examine it with `gitk`,
+where at least you'd get proper navigation between child and parent
+commits.
+
+[sample]: https://github.com/jmazon/aoc-2020-07-sample
+[my-input]: https://github.com/jmazon/aoc-2020-07-my-input
 
 This concludes this day 7 addendum solution.  I hope you enjoyed it.
 See you soon!
