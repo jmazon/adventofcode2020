@@ -2,7 +2,7 @@
 title:       "AoC day 7 done the proper way"
 author:      "Jean-Baptiste Mazon"
 date:        "2021-01-05T13:48:16+01:00"
-updated:     "2021-01-06T18:03:28+01:00"
+updated:     "2021-01-09T23:12:28+01:00"
 tags:        ["advent of code", aoc2020, git, bash, humor, sed]
 description: "Using the proper tool for the job"
 image:       aoc-2020-07-git.jpeg
@@ -243,10 +243,17 @@ Right Tool For The Job.
 
 ![](/images/aoc-2020-07-part1-my-input-small.jpeg){
   usemap="#waldobag"
+  width="680px" height="2940px"
   loading="lazy"
   alt="[My git graph for part 1]"
   title="Click on my shiny gold bag if really you must see the full-size original"
 }
+
+~~I'm not including the part 2 full picture for my input because
+120 pages to stitch together is a bit over my patience threshold.  So
+until someone finds me a way to automate this, you'll have to make
+your own (hey, it's open source!) using either your own input or mine
+deduced from the part 1 graph.  Or just use your imagination.~~
 
 **Update:** I've pushed both [the sample graph][sample] and [the one
 from my puzzle input][my-input] to GitHub.  Like, in case you found a
@@ -258,15 +265,12 @@ commits.
 [sample]: https://github.com/jmazon/aoc-2020-07-sample
 [my-input]: https://github.com/jmazon/aoc-2020-07-my-input
 
+**Update:** Found the patience to screenshot and stitch—there were
+only 76 pages and after a bit of fiddling ImageMagick did most of the
+work—and a kind soul turned up to make the whole thing browsable.  So
+[my part 2 input's graph][leaflet] is now online too.
+
+[leaflet]: 2021-01-09/browsing-the-entire-graph.html
+
 This concludes this day 7 addendum solution.  I hope you enjoyed it.
 See you soon!
-
----
-
-<small>
-  PS: I'm not including the part 2 full picture for my input because
-  120 pages to stitch together is a bit over my patience threshold.
-  So until someone finds me a way to automate this, you'll have to
-  make your own (hey, it's open source!) using either your own input
-  or mine deduced from the part 1 graph.  Or just use your imagination.
-</small>
