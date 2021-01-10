@@ -1,4 +1,5 @@
 ---
+rename:      ../2021-01-05-aoc-day-7-with-git
 title:       "AoC day 7 done the proper way"
 author:      "Jean-Baptiste Mazon"
 date:        "2021-01-05T13:48:16+01:00"
@@ -13,7 +14,7 @@ Advent of Code day 7 puzzle][aoc], performance wasn't really necessary
 to get things to work.  Or even a proper algorithm.  But that doesn't
 mean we have to settle for mediocrity!
 
-[hs]: /posts/day07.html
+[hs]: /posts/2020-12-aoc/day07.html
 [aoc]: https://adventofcode.com/2020/day/7
 
 In this [literate bash][lit][^lit] post, I'll walk you through the

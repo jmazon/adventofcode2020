@@ -98,7 +98,7 @@ Surprise! Part 2 is a cellular automaton!
 It doesn't really have anything specific going for it, I can re-use my
 function from [day 17][day17] directly:
 
-[day17]: /posts/day17.html
+[day17]: /posts/2020-12-aoc/day17.html
 
   > ``` Haskell
   > step :: Conway v => Env v -> Env v
