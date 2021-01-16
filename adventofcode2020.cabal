@@ -82,8 +82,8 @@ executable day13
   ghc-options: -Wall
 
 executable day14
-  main-is: day14.hs
-  build-depends: base, containers, mtl, parsec, text
+  main-is: day14.lhs
+  build-depends: base, containers, lens, parsec
   default-language: Haskell2010
   ghc-options: -Wall
 
