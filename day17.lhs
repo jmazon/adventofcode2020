@@ -1,5 +1,5 @@
 ---
-title:       "AoC Day 17: Conway Cubes"
+title:       "AoC day 17: Conway Cubes"
 author:      "Jean-Baptiste Mazon"
 date:        2020-12-17T09:59:38+01:00
 tags:        ["advent of code", "aoc2020", "haskell"]

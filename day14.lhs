@@ -1,5 +1,5 @@
 ---
-title:       "AoC Day 14: Docking Data"
+title:       "AoC day 14: Docking Data"
 author:      Jean-Baptiste Mazon
 date:        2020-12-14T10:51:36+01:00
 updated:     2021-01-16T19:27:36+01:00

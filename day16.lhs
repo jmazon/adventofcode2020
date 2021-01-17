@@ -1,5 +1,5 @@
 ---
-title:       "AoC Day 16: Ticket Translation"
+title:       "AoC day 16: Ticket Translation"
 author:      "Jean-Baptiste Mazon"
 date:        2020-12-16T10:02:57+01:00
 tags:        ["advent of ciode", "aoc2020", "haskell"]
