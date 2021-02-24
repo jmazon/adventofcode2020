@@ -1,7 +1,7 @@
 ---
 title:       "AoC day 8: Handheld Halting"
 author:      "Jean-Baptiste Mazon"
-date:        "2020-12-09T09:53:28+01:00"
+date:        "2020-12-08T09:53:28+01:00"
 updated:     "2020-12-29T19:22:31+01:00"
 tags:        ["advent of code", aoc2020, haskell]
 description: "The two variants of this year's interpreter"

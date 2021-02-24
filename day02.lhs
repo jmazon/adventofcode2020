@@ -1,7 +1,7 @@
 ---
 title:       "AoC day 2: Password Philosophy"
 author:      "Jean-Baptiste Mazon"
-date:        "2020-12-03T10:07:55+01:00"
+date:        "2020-12-02T10:07:55+01:00"
 updated:     "2021-01-01T22:56:55+01:00"
 tags:        ["advent of code", aoc2020, haskell]
 description: "Validating passwords with Prelude functions"
